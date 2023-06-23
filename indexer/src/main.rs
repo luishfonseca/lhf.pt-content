@@ -8,8 +8,23 @@ fn main() {
         std::process::exit(1);
     });
 
+    let old_index = std::fs::read_to_string("content/posts.index.txt").unwrap_or_else(|_| {
+        eprintln!("Couldn't read content/posts.index.txt");
+        std::process::exit(1);
+    });
+
     match index_posts(posts_dir) {
-        Ok(posts) => println!("{}", posts.trim().to_string()),
+        Ok(posts) => {
+            if posts != old_index {
+                std::fs::write("content/posts.index.txt", posts).unwrap_or_else(|_| {
+                    eprintln!("Couldn't write content/posts.index.txt");
+                    std::process::exit(1);
+                });
+                println!("Updated content/posts.index.txt");
+            } else {
+                println!("content/posts.index.txt is already up to date");
+            }
+        }
         Err(err) => eprintln!("{}", err),
     }
 }

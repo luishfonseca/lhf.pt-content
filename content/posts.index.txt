@@ -1,0 +1,3 @@
+test-post:test-post:test:post
+nixos/dotfiles/a-post-about-my-dotfiles:nixos-dotfiles-a-post-about-my-dotfiles:dotfiles
+nixos/other-post-about-nixos:overriden-slug:test:other
