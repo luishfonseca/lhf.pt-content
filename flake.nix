@@ -52,7 +52,7 @@
       '';
 
       serve = pkgs.writeScript "serve" ''
-        ${pkgs.nodePackages.serve}/bin/serve content -l 5003 -n
+        ${pkgs.nodePackages.live-server}/bin/live-server --port=5003  --no-browser --cors content
       '';
 
       mkApp = run: {
