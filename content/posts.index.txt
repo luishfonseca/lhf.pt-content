@@ -1,3 +1,3 @@
-test-post:test-post:test:post
-nixos/dotfiles/a-post-about-my-dotfiles:nixos-dotfiles-a-post-about-my-dotfiles:dotfiles
-nixos/other-post-about-nixos:overriden-slug:test:other
+2023-05-19:nixos/dotfiles/a-post-about-my-dotfiles:nixos-dotfiles-a-post-about-my-dotfiles:dotfiles A post about my dotfiles
+2023-06-20:test-post:test-post:test:post Test Post
+2023-06-23:nixos/other-post-about-nixos:overriden-slug:test:other Other post about NixOS

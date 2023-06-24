@@ -1,5 +1,6 @@
 ---
 title: Test Post
+date: 2023-06-20
 tags: test post
 draft: false
 ---

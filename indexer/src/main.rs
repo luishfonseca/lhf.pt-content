@@ -15,6 +15,10 @@ fn main() {
 
     match index_posts(posts_dir) {
         Ok(posts) => {
+            let mut lines = posts.lines().into_iter().collect::<Vec<&str>>();
+            lines.sort_unstable();
+            let posts = lines.join("\n");
+
             if posts != old_index {
                 std::fs::write("content/posts.index.txt", posts).unwrap_or_else(|_| {
                     eprintln!("Couldn't write content/posts.index.txt");
@@ -62,10 +66,18 @@ fn index_posts(dir: std::fs::ReadDir) -> Result<String, String> {
                         .next()
                         .map_or(Err("invalid path: couldn't strip extension"), |s| Ok(s))?;
 
-                    // First index field is the path
+                    // First index field is the date in YYYY-MM-DD format
+                    if let Some(Pod::String(date)) = data.get("date") {
+                        index.push_str(&date);
+                    } else {
+                        Err("Invalid front matter: date field missing".to_string())?;
+                    };
+
+                    // Second index field is the path
+                    index.push(':');
                     index.push_str(&path);
 
-                    // Second index field is the slug, if not present generate one from the path
+                    // Third index field is the slug, if not present generate one from the path
                     index.push(':');
                     if let Some(Pod::String(slug)) = data.get("slug") {
                         index.push_str(&slug);
@@ -73,10 +85,18 @@ fn index_posts(dir: std::fs::ReadDir) -> Result<String, String> {
                         index.push_str(&path.replace("/", "-"));
                     };
 
-                    // Last fields are the tags
+                    // Last fields are the tags if present
                     if let Some(Pod::String(tags)) = data.get("tags") {
                         index.push(':');
                         index.push_str(&tags.replace(" ", ":"));
+                    };
+
+                    // The title is added after a space
+                    if let Some(Pod::String(title)) = data.get("title") {
+                        index.push(' ');
+                        index.push_str(&title);
+                    } else {
+                        Err("Invalid front matter: title field missing".to_string())?;
                     };
 
                     index.push('\n');

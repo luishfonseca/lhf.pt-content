@@ -1,5 +1,6 @@
 ---
 title: Other post about NixOS
+date: 2023-06-23
 slug: overriden-slug
 tags: test other
 ---
