@@ -1,5 +1,6 @@
 ---
 title: A post about my dotfiles
+description: Description of the post about my dotfiles
 date: 2023-05-19
 tags: dotfiles
 ---
